@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vpnADM — Premium VPN</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#050508;
+  --card:rgba(255,255,255,0.05);
+  --text:#ffffff;
+  --accent:#ff2e63;
+  --accent2:#ff6a3d;
+}
+
+body {
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background: radial-gradient(circle at top, #120005, #000);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* снег */
+.snow {
+  position:fixed;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+.snow span {
+  position:absolute;
+  width:4px;height:4px;background:white;border-radius:50%;
+  animation:fall linear infinite;
+}
+@keyframes fall {
+  0%{transform:translateY(-10px)}
+  100%{transform:translateY(100vh)}
+}
+
+nav {
+  display:flex;justify-content:space-between;padding:20px;
+  position:sticky;top:0;backdrop-filter:blur(10px);
+}
+
+.btn {
+  position:relative;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;color:white;padding:12px 22px;border-radius:12px;
+  cursor:pointer;margin:5px;font-weight:600;transition:.3s;
+}
+
+.btn:hover {
+  transform:scale(1.08);
+  box-shadow:0 0 25px rgba(255,0,80,0.7);
+}
+
+header {
+  text-align:center;padding:140px 20px;
+}
+
+h1 {
+  font-size:64px;
+  background:linear-gradient(90deg,#ff2e63,#ff6a3d);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+section {
+  max-width:1200px;margin:auto;padding:80px 20px;
+}
+
+.cards {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;
+}
+
+.card {
+  background:var(--card);
+  border:1px solid rgba(255,255,255,0.08);
+  padding:30px;border-radius:20px;
+  backdrop-filter:blur(15px);
+  transition:.3s;
+}
+.card:hover { transform:translateY(-12px); box-shadow:0 0 30px rgba(255,0,80,0.4); }
+
+.price { font-size:36px;color:#ff6a3d;margin:10px 0; }
+
+.badge {
+  display:inline-block;
+  background:#ff2e63;
+  padding:5px 10px;
+  border-radius:8px;
+  font-size:12px;
+}
+
+footer { text-align:center;padding:40px;opacity:0.6 }
+</style>
+</head>
+<body>
+
+<div class="snow" id="snow"></div>
+
+<nav>
+  <b>vpnADM</b>
+  <div>
+    <button class="btn" onclick="scrollToSection('tariffs')">Тарифы</button>
+    <button class="btn" onclick="scrollToSection('features')">Преимущества</button>
+    <button class="btn" onclick="scrollToSection('contact')">Контакты</button>
+  </div>
+</nav>
+
+<header>
+  <h1>vpnADM 🚀</h1>
+  <p>VPN нового поколения. Быстро. Анонимно. Без ограничений.</p>
+  <button class="btn" onclick="buy()">Купить сейчас</button>
+  <button class="btn" onclick="connect()">Подключиться</button>
+</header>
+
+<section id="features">
+  <h2>Почему выбирают нас</h2>
+  <div class="cards">
+    <div class="card"><h3>🔒 Безопасность</h3><p>Шифрование уровня AES-256</p></div>
+    <div class="card"><h3>⚡ Скорость</h3><p>До 1 Гбит/с</p></div>
+    <div class="card"><h3>🌍 Доступ</h3><p>Любые сайты без блокировок</p></div>
+  </div>
+</section>
+
+<section id="tariffs">
+  <h2>Тарифы</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>1 месяц</h3>
+      <p class="price">$5</p>
+      <button class="btn" onclick="pay('https://buy.stripe.com/test')">Оплатить</button>
+    </div>
+
+    <div class="card">
+      <span class="badge">ПОПУЛЯРНО</span>
+      <h3>6 месяцев</h3>
+      <p class="price">$25</p>
+      <button class="btn" onclick="pay('https://buy.stripe.com/test')">Оплатить</button>
+    </div>
+
+    <div class="card">
+      <h3>12 месяцев</h3>
+      <p class="price">$40</p>
+      <button class="btn" onclick="pay('https://buy.stripe.com/test')">Оплатить</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Как это работает</h2>
+  <div class="cards">
+    <div class="card"><h3>1. Оплата</h3><p>Выбираешь тариф</p></div>
+    <div class="card"><h3>2. Получаешь доступ</h3><p>Ключ приходит в Telegram</p></div>
+    <div class="card"><h3>3. Подключаешься</h3><p>И пользуешься VPN</p></div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Контакты</h2>
+  <button class="btn" onclick="openTG()">Telegram</button>
+  <button class="btn" onclick="alert('support@vpnadm.com')">Email</button>
+</section>
+
+<footer>
+  <p>© 2026 vpnADM</p>
+</footer>
+
+<script>
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+function pay(url){window.open(url,'_blank')}
+function buy(){scrollToSection('tariffs')}
+function connect(){alert('Скачай приложение VPN (добавим позже)')}
+function openTG(){window.open('https://t.me/yourbot','_blank')}
+
+const snow=document.getElementById('snow');
+for(let i=0;i<100;i++){
+ let s=document.createElement('span');
+ s.style.left=Math.random()*100+'%';
+ s.style.animationDuration=(3+Math.random()*5)+'s';
+ snow.appendChild(s);
+}
+</script>
+
+</body>
+</html>
